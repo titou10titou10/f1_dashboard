@@ -12,7 +12,8 @@ F1Status::F1Status(QWidget *parent):QMainWindow(parent), ui(new Ui::F1Status) {
     ui->setupUi(this);
     // setWindowIcon(QIcon(":/Ressources/F1Telemetry.png"));
     setWindowTitle(qApp->applicationName() + " " + qApp->applicationVersion());
-    resize(1400, 800);
+    adjustSize();
+//    resize(1400, 800);
 
     // Register structures passed from the UDP thread to this thread (GUI)
     qRegisterMetaType<PacketHeader>("PacketHeader");
@@ -61,6 +62,12 @@ void F1Status::telemetryChanged(const PacketHeader &header, const CarTelemetryDa
        ui->car_drs->setChecked(false);
    }
 
+   ui->temp_engine->setNum(data.m_engineTemperature);
+   ui->temp_tyre_fl->setNum(data.m_tyresSurfaceTemperature[0]);
+   ui->temp_tyre_fr->setNum(data.m_tyresSurfaceTemperature[1]);
+   ui->temp_tyre_rl->setNum(data.m_tyresSurfaceTemperature[2]);
+   ui->temp_tyre_rr->setNum(data.m_tyresSurfaceTemperature[3]);
+
 }
 
 void F1Status::lapChanged(const PacketHeader &header, const LapData &data){
@@ -83,6 +90,9 @@ void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionDat
    ui->session_track->setText(UdpSpecification::instance()->track(data.m_trackId));
    ui->lap_num_total->setNum(data.m_totalLaps);
    ui->session_time_left->setText(formatTimeS(data.m_sessionTimeLeft));
+   ui->weather->setText(UdpSpecification::instance()->weather(data.m_weather));
+   ui->temp_track->setNum(data.m_trackTemperature);
+   ui->temp_air->setNum(data.m_airTemperature);
 }
 
 void F1Status::setupChanged(const PacketHeader &header, const CarSetupData &data){
