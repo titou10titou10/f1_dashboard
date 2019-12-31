@@ -27,6 +27,10 @@ private:
     void setColoredLabel(QLabel* item, quint8 value);
     QString formatTimeMs(float value);
     QString formatTimeS(uint16_t value);
+    QString truncate2(float value);
+    void setRed(QLabel* label);
+    void setGreen(QLabel* label);
+    void setOrange(QLabel* label);
 
 private slots:
     void telemetryChanged(const PacketHeader &header, const CarTelemetryData &data) ;

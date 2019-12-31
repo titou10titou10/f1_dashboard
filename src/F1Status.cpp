@@ -76,7 +76,7 @@ void F1Status::lapChanged(const PacketHeader &header, const LapData &data){
     ui->lap_penalties->setNum(data.m_penalties);
     ui->lap_position->setNum(data.m_carPosition);
 
-    ui->lap_num_current->setNum(data.m_currentLapNum);
+    ui->lap_num->setNum(data.m_currentLapNum);
 
     ui->lap_time_best->setText(formatTimeMs(data.m_bestLapTime));
     ui->lap_time_last->setText(formatTimeMs(data.m_lastLapTime));
@@ -88,11 +88,16 @@ void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionDat
 
    ui->session_type->setText(UdpSpecification::instance()->session_type(data.m_sessionType));
    ui->session_track->setText(UdpSpecification::instance()->track(data.m_trackId));
-   ui->lap_num_total->setNum(data.m_totalLaps);
    ui->session_time_left->setText(formatTimeS(data.m_sessionTimeLeft));
    ui->weather->setText(UdpSpecification::instance()->weather(data.m_weather));
    ui->temp_track->setNum(data.m_trackTemperature);
    ui->temp_air->setNum(data.m_airTemperature);
+
+   if (data.m_totalLaps < 99) {
+      QString d = QString("/%1").arg(data.m_totalLaps);
+      ui->lap_total->setText(d);
+   }
+
 }
 
 void F1Status::setupChanged(const PacketHeader &header, const CarSetupData &data){
@@ -105,16 +110,29 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
 
    ui->tyre_compound->setText(UdpSpecification::instance()->tyre(data.m_tyreCompound));
    ui->tyre_visual->setText(UdpSpecification::instance()->visualTyre(data.m_tyreVisualCompound));
-   ui->ers_mode->setText(UdpSpecification::instance()->ersMode(data.m_ersDeployMode));
-   ui->fuel_mix->setText(UdpSpecification::instance()->fuelMix(data.m_fuelMix));
 
-   QString x;
-   x.sprintf("%+02.2f",data.m_fuelRemainingLaps);
-   ui->car_fuel_laps->setText(x);
+
+   // ERS
+   float h = (data.m_ersHarvestedThisLapMGUK + data.m_ersHarvestedThisLapMGUH) / 1000.0;
+   float s = data.m_ersStoreEnergy / 1000.0;
+   float d = data.m_ersDeployedThisLap / 1000.0;
+
+   qDebug() << "D " << d << "H " << h << "S" << s;
+
+   ui->ers_mode->setText(UdpSpecification::instance()->ersMode(data.m_ersDeployMode));
+   ui->ers_harvested->setValue(h);
+   ui->ers_storeenergy->setValue(s);
+   ui->ers_deployed->setValue(d);
+
+   // Fuel
+   ui->fuel_mix->setText(UdpSpecification::instance()->fuelMix(data.m_fuelMix));
+   ui->fuel_in_tank->setText(truncate2(data.m_fuelInTank));
+
+   ui->car_fuel_laps->setText(truncate2(data.m_fuelRemainingLaps));
    if (data.m_fuelRemainingLaps >= 0) {
-       ui->car_fuel_laps->setStyleSheet("background-color: hsv(120, 255, 255)");
+       setGreen(ui->car_fuel_laps);
    } else {
-       ui->car_fuel_laps->setStyleSheet("background-color: hsv(0, 255, 255)");
+       setRed(ui->car_fuel_laps);
    }
 
    setColoredLabel(ui->dmg_tyre_rl, data.m_tyresWear[0]);
@@ -164,7 +182,29 @@ QString F1Status::formatTimeMs(float value)  {
 }
 
 QString F1Status::formatTimeS(uint16_t value)  {
-   return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("mm:ss");
+    if (value > 60 *60) {
+       return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("h:mm:ss");
+    } else {
+        return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("mm:ss");
+    }
+}
+
+QString F1Status::truncate2(float value)  {
+    QString x;
+    x.sprintf("%+02.2f", value);
+    return x;
+}
+
+void F1Status::setRed(QLabel* label){
+   label->setStyleSheet("background-color: hsv(0, 255, 255)");
+}
+
+void F1Status::setGreen(QLabel* label){
+   label->setStyleSheet("background-color: hsv(120, 255, 255)");
+}
+
+void F1Status::setOrange(QLabel* label){
+   label->setStyleSheet("background-color: hsv(60, 255, 255)");
 }
 
 
