@@ -103,6 +103,8 @@ void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionDat
    if ((data.m_totalLaps > 0) && (data.m_totalLaps < 99)) {
       QString d = QString("/ %1").arg(data.m_totalLaps);
       ui->lap_total->setText(d);
+   } else {
+      ui->lap_total->clear();
    }
 
 }
