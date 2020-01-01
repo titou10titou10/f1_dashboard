@@ -179,11 +179,24 @@ void F1Status::setColoredLabel(QLabel* item, quint8 value)  {
     auto newValue = QString::number(value);
     if (oldValue.compare(newValue) != 0) {
        int hue = 120 - (value * 12 / 10);
-       QString bc = QString("background-color: hsv(%1, 255, 255)").arg(hue);
+       QString bc = QString("background-color: hsv(%1, 255, 180); color: rgb(0, 0, 0);").arg(hue);
        item->setNum(value);
        item->setStyleSheet(bc);
     }
 }
+
+void F1Status::setRed(QLabel* label){
+   label->setStyleSheet("background-color: hsv(0, 255, 180); color: rgb(0, 0, 0);");
+}
+
+void F1Status::setGreen(QLabel* label){
+   label->setStyleSheet("background-color: hsv(120, 255, 180);color: rgb(0, 0, 0);");
+}
+
+void F1Status::setOrange(QLabel* label){
+   label->setStyleSheet("background-color: hsv(60, 255, 180)color: rgb(0, 0, 0);");
+}
+
 QString F1Status::formatTimeMs(float value)  {
    return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("m:ss.zzz");
 }
@@ -211,18 +224,3 @@ QString F1Status::truncate2plus(float value)  {
 QString F1Status::setPSI(float value)  {
     return QString("%1 psi").arg(value);
 }
-
-void F1Status::setRed(QLabel* label){
-   label->setStyleSheet("background-color: hsv(0, 255, 180)");
-}
-
-void F1Status::setGreen(QLabel* label){
-   label->setStyleSheet("background-color: hsv(120, 255, 180)");
-}
-
-void F1Status::setOrange(QLabel* label){
-   label->setStyleSheet("background-color: hsv(60, 255, 180)");
-}
-
-
-
