@@ -213,15 +213,15 @@ QString F1Status::setPSI(float value)  {
 }
 
 void F1Status::setRed(QLabel* label){
-   label->setStyleSheet("background-color: hsv(0, 255, 255)");
+   label->setStyleSheet("background-color: hsv(0, 255, 180)");
 }
 
 void F1Status::setGreen(QLabel* label){
-   label->setStyleSheet("background-color: hsv(120, 255, 255)");
+   label->setStyleSheet("background-color: hsv(120, 255, 180)");
 }
 
 void F1Status::setOrange(QLabel* label){
-   label->setStyleSheet("background-color: hsv(60, 255, 255)");
+   label->setStyleSheet("background-color: hsv(60, 255, 180)");
 }
 
 
