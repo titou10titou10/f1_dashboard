@@ -142,10 +142,10 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
        setRed(ui->car_fuel_laps);
    }
 
-   setColoredLabel(ui->dmg_tyre_rl, data.m_tyresWear[0]);
-   setColoredLabel(ui->dmg_tyre_rr, data.m_tyresWear[1]);
-   setColoredLabel(ui->dmg_tyre_fl, data.m_tyresWear[2]);
-   setColoredLabel(ui->dmg_tyre_fr, data.m_tyresWear[3]);
+   setColoredLabel(ui->dmg_tyre_wear_rl, data.m_tyresWear[0]);
+   setColoredLabel(ui->dmg_tyre_wear_rr, data.m_tyresWear[1]);
+   setColoredLabel(ui->dmg_tyre_wear_fl, data.m_tyresWear[2]);
+   setColoredLabel(ui->dmg_tyre_wear_fr, data.m_tyresWear[3]);
 
    setColoredLabel(ui->dmg_engine, data.m_engineDamage);
    setColoredLabel(ui->dmg_gearbox, data.m_gearBoxDamage);

@@ -75,7 +75,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -122,7 +122,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -146,9 +146,9 @@
       <widget class="QLabel" name="temp_engine">
        <property name="geometry">
         <rect>
-         <x>155</x>
+         <x>150</x>
          <y>220</y>
-         <width>60</width>
+         <width>70</width>
          <height>80</height>
         </rect>
        </property>
@@ -160,7 +160,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -198,7 +198,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -236,7 +236,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1260,7 +1260,7 @@
       <property name="flat">
        <bool>false</bool>
       </property>
-      <widget class="QLabel" name="dmg_tyre_fl">
+      <widget class="QLabel" name="dmg_tyre_wear_fl">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1278,7 +1278,7 @@
        <property name="font">
         <font>
          <family>Arial</family>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1308,7 +1308,7 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="dmg_tyre_rl">
+      <widget class="QLabel" name="dmg_tyre_wear_rl">
        <property name="geometry">
         <rect>
          <x>20</x>
@@ -1325,7 +1325,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1387,9 +1387,9 @@
       <widget class="QLabel" name="dmg_engine">
        <property name="geometry">
         <rect>
-         <x>155</x>
+         <x>150</x>
          <y>250</y>
-         <width>60</width>
+         <width>70</width>
          <height>80</height>
         </rect>
        </property>
@@ -1401,7 +1401,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1422,7 +1422,7 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="dmg_tyre_fr">
+      <widget class="QLabel" name="dmg_tyre_wear_fr">
        <property name="geometry">
         <rect>
          <x>260</x>
@@ -1439,7 +1439,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1498,7 +1498,7 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
-      <widget class="QLabel" name="dmg_tyre_rr">
+      <widget class="QLabel" name="dmg_tyre_wear_rr">
        <property name="geometry">
         <rect>
          <x>260</x>
@@ -1515,7 +1515,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1577,9 +1577,9 @@
       <widget class="QLabel" name="dmg_gearbox">
        <property name="geometry">
         <rect>
-         <x>155</x>
+         <x>150</x>
          <y>360</y>
-         <width>60</width>
+         <width>70</width>
          <height>40</height>
         </rect>
        </property>
@@ -1591,7 +1591,7 @@
        </property>
        <property name="font">
         <font>
-         <pointsize>14</pointsize>
+         <pointsize>12</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -1699,13 +1699,13 @@
       <zorder>line_4</zorder>
       <zorder>line_5</zorder>
       <zorder>line_2</zorder>
-      <zorder>dmg_tyre_fl</zorder>
-      <zorder>dmg_tyre_rl</zorder>
+      <zorder>dmg_tyre_wear_fl</zorder>
+      <zorder>dmg_tyre_wear_rl</zorder>
       <zorder>dmg_wing_fr</zorder>
       <zorder>dmg_engine</zorder>
-      <zorder>dmg_tyre_fr</zorder>
+      <zorder>dmg_tyre_wear_fr</zorder>
       <zorder>dmg_wing_fl</zorder>
-      <zorder>dmg_tyre_rr</zorder>
+      <zorder>dmg_tyre_wear_rr</zorder>
       <zorder>dmg_wing_rear</zorder>
       <zorder>dmg_gearbox</zorder>
      </widget>
@@ -1883,7 +1883,7 @@
           <number>4000</number>
          </property>
          <property name="value">
-          <number>1000</number>
+          <number>0</number>
          </property>
          <property name="textVisible">
           <bool>true</bool>
