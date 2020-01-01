@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>F1Status</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(50, 50, 50);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -84,10 +88,10 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -103,6 +107,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>4</number>
        </property>
       </widget>
       <widget class="QLabel" name="temp_tyre_rl">
@@ -128,10 +135,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -141,6 +148,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>4</number>
        </property>
       </widget>
       <widget class="QLabel" name="temp_engine">
@@ -166,10 +176,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -204,10 +214,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -217,6 +227,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>4</number>
        </property>
       </widget>
       <widget class="QLabel" name="temp_tyre_rr">
@@ -242,10 +255,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -255,6 +268,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>4</number>
        </property>
       </widget>
       <widget class="Line" name="line_3">
@@ -364,10 +380,11 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(192, 192, 192);</string>
+        <string notr="true">background-color: rgb(192, 192, 192);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
         <string>0</string>
@@ -399,10 +416,11 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(192, 192, 192);</string>
+        <string notr="true">background-color: rgb(192, 192, 192);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
         <string>0</string>
@@ -434,10 +452,11 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(192, 192, 192);</string>
+        <string notr="true">background-color: rgb(192, 192, 192);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
         <string>0</string>
@@ -469,10 +488,11 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(192, 192, 192);</string>
+        <string notr="true">background-color: rgb(192, 192, 192);
+color: rgb(0, 0, 0);</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="text">
         <string>0</string>
@@ -603,9 +623,9 @@
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
+      <zorder>line_3</zorder>
       <zorder>line_6</zorder>
       <zorder>line_7</zorder>
-      <zorder>line_3</zorder>
       <zorder>temp_tyre_fl</zorder>
       <zorder>temp_tyre_rr</zorder>
       <zorder>temp_tyre_fr</zorder>
@@ -900,7 +920,7 @@
           <string notr="true">background-color: rgb(0, 170, 255);</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Box</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="text">
           <string notr="true">0</string>
@@ -1287,10 +1307,10 @@
         <bool>false</bool>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180);</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Plain</enum>
@@ -1331,10 +1351,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1369,10 +1389,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1407,10 +1427,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1445,10 +1465,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1483,10 +1503,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1521,10 +1541,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1559,10 +1579,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1597,10 +1617,10 @@
         </font>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-color: hsv(120, 255, 255)</string>
+        <string notr="true">background-color: hsv(120, 255, 180)</string>
        </property>
        <property name="frameShape">
-        <enum>QFrame::Box</enum>
+        <enum>QFrame::NoFrame</enum>
        </property>
        <property name="lineWidth">
         <number>2</number>
@@ -1696,9 +1716,9 @@
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
+      <zorder>line_2</zorder>
       <zorder>line_4</zorder>
       <zorder>line_5</zorder>
-      <zorder>line_2</zorder>
       <zorder>dmg_tyre_wear_fl</zorder>
       <zorder>dmg_tyre_wear_rl</zorder>
       <zorder>dmg_wing_fr</zorder>
@@ -1946,7 +1966,7 @@
             <string notr="true">background-color: rgb(0, 170, 255);</string>
            </property>
            <property name="frameShape">
-            <enum>QFrame::Box</enum>
+            <enum>QFrame::NoFrame</enum>
            </property>
            <property name="text">
             <string/>
@@ -2009,6 +2029,12 @@
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
+         </property>
+         <property name="margin">
+          <number>1</number>
+         </property>
+         <property name="indent">
+          <number>-1</number>
          </property>
         </widget>
        </item>
@@ -2092,7 +2118,7 @@
           <string notr="true">background-color: rgb(0, 170, 255);</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Box</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="text">
           <string notr="true">N</string>
@@ -2313,7 +2339,7 @@
           <string notr="true">background-color: rgb(0, 170, 255);</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Box</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="text">
           <string notr="true"/>
@@ -2397,10 +2423,10 @@
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: hsv(120, 255, 255)</string>
+          <string notr="true">background-color: hsv(120, 255, 180)</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::Box</enum>
+          <enum>QFrame::NoFrame</enum>
          </property>
          <property name="text">
           <string notr="true">+0.00</string>
