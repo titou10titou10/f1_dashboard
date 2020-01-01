@@ -63,11 +63,18 @@ void F1Status::telemetryChanged(const PacketHeader &header, const CarTelemetryDa
    }
 
    ui->temp_engine->setNum(data.m_engineTemperature);
-   ui->temp_tyre_fl->setNum(data.m_tyresSurfaceTemperature[0]);
-   ui->temp_tyre_fr->setNum(data.m_tyresSurfaceTemperature[1]);
-   ui->temp_tyre_rl->setNum(data.m_tyresSurfaceTemperature[2]);
-   ui->temp_tyre_rr->setNum(data.m_tyresSurfaceTemperature[3]);
-
+   ui->temp_tyre_rl->setNum(data.m_tyresSurfaceTemperature[0]);
+   ui->temp_tyre_rr->setNum(data.m_tyresSurfaceTemperature[1]);
+   ui->temp_tyre_fl->setNum(data.m_tyresSurfaceTemperature[2]);
+   ui->temp_tyre_fr->setNum(data.m_tyresSurfaceTemperature[3]);
+   ui->temp_brake_rl->setNum(data.m_brakesTemperature[0]);
+   ui->temp_brake_rr->setNum(data.m_brakesTemperature[1]);
+   ui->temp_brake_fl->setNum(data.m_brakesTemperature[2]);
+   ui->temp_brake_fr->setNum(data.m_brakesTemperature[3]);
+   ui->pressure_rl->setText(setPSI(data.m_tyresPressure[0]));
+   ui->pressure_rr->setText(setPSI(data.m_tyresPressure[1]));
+   ui->pressure_fl->setText(setPSI(data.m_tyresPressure[2]));
+   ui->pressure_fr->setText(setPSI(data.m_tyresPressure[3]));
 }
 
 void F1Status::lapChanged(const PacketHeader &header, const LapData &data){
@@ -93,8 +100,8 @@ void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionDat
    ui->temp_track->setNum(data.m_trackTemperature);
    ui->temp_air->setNum(data.m_airTemperature);
 
-   if (data.m_totalLaps < 99) {
-      QString d = QString("/%1").arg(data.m_totalLaps);
+   if ((data.m_totalLaps > 0) && (data.m_totalLaps < 99)) {
+      QString d = QString("/ %1").arg(data.m_totalLaps);
       ui->lap_total->setText(d);
    }
 
@@ -117,8 +124,6 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
    float s = data.m_ersStoreEnergy / 1000.0;
    float d = data.m_ersDeployedThisLap / 1000.0;
 
-   qDebug() << "D " << d << "H " << h << "S" << s;
-
    ui->ers_mode->setText(UdpSpecification::instance()->ersMode(data.m_ersDeployMode));
    ui->ers_harvested->setValue(h);
    ui->ers_storeenergy->setValue(s);
@@ -128,7 +133,7 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
    ui->fuel_mix->setText(UdpSpecification::instance()->fuelMix(data.m_fuelMix));
    ui->fuel_in_tank->setText(truncate2(data.m_fuelInTank));
 
-   ui->car_fuel_laps->setText(truncate2(data.m_fuelRemainingLaps));
+   ui->car_fuel_laps->setText(truncate2plus(data.m_fuelRemainingLaps));
    if (data.m_fuelRemainingLaps >= 0) {
        setGreen(ui->car_fuel_laps);
    } else {
@@ -191,8 +196,18 @@ QString F1Status::formatTimeS(uint16_t value)  {
 
 QString F1Status::truncate2(float value)  {
     QString x;
+    x.sprintf("%02.2f", value);
+    return x;
+}
+
+QString F1Status::truncate2plus(float value)  {
+    QString x;
     x.sprintf("%+02.2f", value);
     return x;
+}
+
+QString F1Status::setPSI(float value)  {
+    return QString("%1 psi").arg(value);
 }
 
 void F1Status::setRed(QLabel* label){

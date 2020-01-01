@@ -27,7 +27,9 @@ private:
     void setColoredLabel(QLabel* item, quint8 value);
     QString formatTimeMs(float value);
     QString formatTimeS(uint16_t value);
+    QString setPSI(float value);
     QString truncate2(float value);
+    QString truncate2plus(float value);
     void setRed(QLabel* label);
     void setGreen(QLabel* label);
     void setOrange(QLabel* label);
