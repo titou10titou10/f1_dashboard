@@ -10,7 +10,7 @@ F1Status::F1Status(QWidget *parent):QMainWindow(parent), ui(new Ui::F1Status) {
     qDebug() << "F1Status starting...";
 
     ui->setupUi(this);
-    // setWindowIcon(QIcon(":/Ressources/F1Telemetry.png"));
+    setWindowIcon(QIcon(":/Ressources/speedometer.png"));
     setWindowTitle(qApp->applicationName() + " " + qApp->applicationVersion());
     adjustSize();
 //    resize(1400, 800);
