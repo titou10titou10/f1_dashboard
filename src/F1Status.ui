@@ -1018,7 +1018,7 @@ color: rgb(0, 0, 0);</string>
       </layout>
      </widget>
     </item>
-    <item row="5" column="1">
+    <item row="5" column="4">
      <widget class="QGroupBox" name="group_tyres">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -1541,7 +1541,7 @@ color: rgb(0, 0, 0)</string>
           <enum>QFrame::NoFrame</enum>
          </property>
          <property name="text">
-          <string notr="true">L. Hamilton</string>
+          <string notr="true">L. HAMILTON</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -2535,10 +2535,10 @@ color: rgb(0, 0, 0);</string>
       <zorder>pressure_rr</zorder>
      </widget>
     </item>
-    <item row="5" column="2" colspan="3">
+    <item row="5" column="1" colspan="3" rowspan="2">
      <widget class="QGroupBox" name="group_position">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -2549,7 +2549,7 @@ color: rgb(0, 0, 0);</string>
        </font>
       </property>
       <property name="title">
-       <string>Position</string>
+       <string>Position (Delta from last sector)</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2580,7 +2580,7 @@ color: rgb(0, 0, 0);</string>
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>z</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2603,7 +2603,7 @@ color: rgb(0, 0, 0);</string>
           </font>
          </property>
          <property name="text">
-          <string>t</string>
+          <string/>
          </property>
         </widget>
        </item>
@@ -2629,7 +2629,7 @@ color: rgb(0, 0, 0);</string>
           </font>
          </property>
          <property name="text">
-          <string>x</string>
+          <string/>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2652,7 +2652,7 @@ color: rgb(0, 0, 0);</string>
           </font>
          </property>
          <property name="text">
-          <string>z</string>
+          <string/>
          </property>
         </widget>
        </item>

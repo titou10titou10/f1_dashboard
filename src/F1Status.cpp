@@ -61,7 +61,7 @@ void F1Status::telemetryChanged(const PacketHeader &header, const CarTelemetryDa
        setColor(ui->car_drs, colorGREEN);
    } else {
       if (drsAllowed == 1) {
-           setColor(ui->car_drs, colorORANGE);
+           setColor(ui->car_drs, colorRED);
       } else {
           setColor(ui->car_drs, colorGREY);
       }
@@ -94,33 +94,33 @@ void F1Status::lapChanged(const PacketHeader &header, const LapData &data, const
     setTimeMs(ui->lap_time_last, data.m_lastLapTime);
     setTimeMs(ui->lap_time_current, data.m_currentLapTime);
 
-    if (namePrev.length() > 0){
+    if (namePrev.isEmpty()) {
+       ui->pos_prev_name->clear();
+       ui->pos_prev_delta->clear();
+       ui->pos_prev_delta->setStyleSheet("");
+    } else {
        ui->pos_prev_name->setText(namePrev);
        setFloatFormat(ui->pos_prev_delta, fmtThreeSign, deltaPrev);
-       if (deltaPrev > 0) {
+       if (deltaPrev >= 0) {
            setColor(ui->pos_prev_delta, colorGREEN);
        } else {
            setColor(ui->pos_prev_delta, colorRED);
        }
-    } else {
-        ui->pos_prev_name->clear();
-        ui->pos_prev_delta->clear();
-        ui->pos_prev_delta->setStyleSheet("");
     }
 
-    if (nameFollow.length() > 0){
+    if (nameFollow.isEmpty()) {
+       ui->pos_follow_name->clear();
+       ui->pos_follow_delta->clear();
+       ui->pos_follow_delta->setStyleSheet("");
+    } else {
        ui->pos_follow_name->setText(nameFollow);
        setFloatFormat(ui->pos_follow_delta, fmtThreeSign, deltaFollow);
-       if (deltaFollow > 0) {
+       if (deltaFollow >= 0) {
            setColor(ui->pos_follow_delta, colorGREEN);
        } else {
            ui->pos_prev_name->clear();
            setColor(ui->pos_follow_delta, colorRED);
        }
-    } else {
-        ui->pos_follow_name->clear();
-        ui->pos_follow_delta->clear();
-        ui->pos_follow_delta->setStyleSheet("");
     }
 }
 

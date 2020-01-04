@@ -37,6 +37,7 @@ class Tracker : public QObject, public F1PacketInterface {
     void eventData(const PacketHeader &header, const PacketEventData &data) override;
 
     quint64 sessionUID;
+    quint8 sessionType;
     quint8  numActiveCars = 0;
     QVector<ParticipantData> participants;
 

@@ -1,7 +1,7 @@
 #include "F1Status.h"
 #include <QApplication>
 
-const QString &VERSION = "0.9";
+const QString &VERSION = "1.0";
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);

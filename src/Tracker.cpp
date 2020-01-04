@@ -21,17 +21,27 @@ void Tracker::headerData(const PacketHeader &header) {
 }
 
 void Tracker::telemetryData(const PacketHeader &header, const PacketCarTelemetryData &data) {
-    auto playerIndex = header.m_playerCarIndex;
-    emit(telemetryChanged(header, data.m_carTelemetryData.at(playerIndex)));
+    auto ixPlayer = header.m_playerCarIndex;
+    emit(telemetryChanged(header, data.m_carTelemetryData[ixPlayer]));
 }
 
 void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
-    auto playerIndex = header.m_playerCarIndex;
-    auto playerData = data.m_lapData.at(playerIndex);
+    auto ixPlayer = header.m_playerCarIndex;
+    auto playerData = data.m_lapData[ixPlayer];
 
-    // Find index and name of prev car
     QString namePrev = "";
     int ixPrev = -1;
+    float deltaPrev = 0;
+    QString nameFollow = "";
+    int ixFollow = -1;
+    float deltaFollow = 0;
+
+    // Only compute delta times for races
+    if ((sessionType != 10) && (sessionType != 11)) {
+       emit(lapChanged(header, data.m_lapData.at(ixPlayer), namePrev, deltaPrev, nameFollow, deltaFollow));
+    }
+
+    // Find index and name of prev car
     int posPrev = playerData.m_carPosition - 1;
     if (posPrev >= 1) {
        for(int i = 0; i < numActiveCars; i++) {
@@ -44,8 +54,6 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
     }
 
     // Find index and name of following car
-    QString nameFollow = "";
-    int ixFollow = -1;
     int posFollow = playerData.m_carPosition + 1;
     if (posFollow <= numActiveCars) {
         for(int i = 0; i < numActiveCars; i++) {
@@ -103,8 +111,8 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
     // Compute total time up to last sector for the lap/sector the player is...
 
     auto playerLapIndex = playerData.m_currentLapNum - 1;
-    float s1 = timeSector1[playerIndex][playerLapIndex];
-    float s2 = timeSector2[playerIndex][playerLapIndex];
+    float s1 = timeSector1[ixPlayer][playerLapIndex];
+    float s2 = timeSector2[ixPlayer][playerLapIndex];
     bool addSector1 = (s1 > 0);
     bool addSector2 = (s2 > 0);
 
@@ -113,7 +121,7 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
 
     float playerTotal = s1 + s2;
     for(int j = 0; j < playerLapIndex; j++) {
-       playerTotal += timeLastLaps[playerIndex][j];
+       playerTotal += timeLastLaps[ixPlayer][j];
     }
 
     float prevTotal = 0;
@@ -135,8 +143,7 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
     }
 
     // Compute delta time with prev and follow
-     float deltaPrev = 0;
-     float deltaFollow = 0;
+
 
      if (playerData.m_carPosition > 1) {
         deltaPrev = prevTotal - playerTotal;
@@ -145,31 +152,32 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
         deltaFollow = followTotal - playerTotal;
      }
 
-     //qDebug() << "Prev" << namePrev << deltaPrev << ixPrev << "Follow" << nameFollow << deltaFollow << ixFollow;
+     // qDebug() << "Prev" << namePrev << deltaPrev << "Follow" << nameFollow << deltaFollow;
 
-     emit(lapChanged(header, data.m_lapData.at(playerIndex), namePrev, deltaPrev, nameFollow, deltaFollow));
+     emit(lapChanged(header, data.m_lapData[ixPlayer], namePrev, deltaPrev, nameFollow, deltaFollow));
 }
 
 void Tracker::sessionData(const PacketHeader &header, const PacketSessionData &data){
+    sessionType = data.m_sessionType;
     emit(sessionChanged(header, data));
 }
 
 void Tracker::setupData(const PacketHeader &header, const PacketCarSetupData &data) {
-    auto playerIndex = header.m_playerCarIndex;
-    emit(setupChanged(header, data.m_carSetups.at(playerIndex)));
+    auto ixPlayer = header.m_playerCarIndex;
+    emit(setupChanged(header, data.m_carSetups[ixPlayer]));
 }
 
 void Tracker::statusData(const PacketHeader &header, const PacketCarStatusData &data) {
-    auto playerIndex = header.m_playerCarIndex;
-    emit(statusChanged(header, data.m_carStatusData.at(playerIndex)));
+    auto ixPlayer = header.m_playerCarIndex;
+    emit(statusChanged(header, data.m_carStatusData[ixPlayer]));
 }
 
 void Tracker::participantData(const PacketHeader &header, const PacketParticipantsData &data) {
     numActiveCars = data.m_numActiveCars;
     participants = data.m_participants;
 
-    auto playerIndex = header.m_playerCarIndex;
-    emit(participantChanged(header, data.m_participants.at(playerIndex)));
+    auto ixPlayer = header.m_playerCarIndex;
+    emit(participantChanged(header, data.m_participants[ixPlayer]));
 }
 
 void Tracker::motionData(const PacketHeader &header, const PacketMotionData &data) {
