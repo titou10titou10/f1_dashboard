@@ -13,7 +13,6 @@ F1Status::F1Status(QWidget *parent):QMainWindow(parent), ui(new Ui::F1Status) {
     setWindowIcon(QIcon(":/Ressources/speedometer.png"));
     setWindowTitle(qApp->applicationName() + " " + qApp->applicationVersion());
     adjustSize();
-//    resize(1400, 800);
 
     // Register structures passed from the UDP thread to this thread (GUI)
     qRegisterMetaType<PacketHeader>("PacketHeader");
@@ -56,10 +55,16 @@ void F1Status::telemetryChanged(const PacketHeader &header, const CarTelemetryDa
    ui->car_speed->setNum(data.m_speed);
    ui->car_gear->setNum(data.m_gear);
    ui->engine_rpm->setNum(data.m_engineRPM);
-   if (data.m_drs) {
-       ui->car_drs->setChecked(true);
+
+   // DRS
+   if (data.m_drs == 1) {
+       setColor(ui->car_drs, colorGREEN);
    } else {
-       ui->car_drs->setChecked(false);
+      if (drsAllowed == 1) {
+           setColor(ui->car_drs, colorORANGE);
+      } else {
+          setColor(ui->car_drs, colorGREY);
+      }
    }
 
    ui->temp_engine->setNum(data.m_engineTemperature);
@@ -71,23 +76,52 @@ void F1Status::telemetryChanged(const PacketHeader &header, const CarTelemetryDa
    ui->temp_brake_rr->setNum(data.m_brakesTemperature[1]);
    ui->temp_brake_fl->setNum(data.m_brakesTemperature[2]);
    ui->temp_brake_fr->setNum(data.m_brakesTemperature[3]);
-   ui->pressure_rl->setText(setPSI(data.m_tyresPressure[0]));
-   ui->pressure_rr->setText(setPSI(data.m_tyresPressure[1]));
-   ui->pressure_fl->setText(setPSI(data.m_tyresPressure[2]));
-   ui->pressure_fr->setText(setPSI(data.m_tyresPressure[3]));
+   setFloatFormat(ui->pressure_rl, fmtPSI, data.m_tyresPressure[0]);
+   setFloatFormat(ui->pressure_rr, fmtPSI, data.m_tyresPressure[1]);
+   setFloatFormat(ui->pressure_fl, fmtPSI, data.m_tyresPressure[2]);
+   setFloatFormat(ui->pressure_fr, fmtPSI, data.m_tyresPressure[3]);
 }
 
-void F1Status::lapChanged(const PacketHeader &header, const LapData &data){
+void F1Status::lapChanged(const PacketHeader &header, const LapData &data, const QString namePrev,float deltaPrev, QString nameFollow, float deltaFollow) {
     Q_UNUSED(header);
 
-    ui->lap_penalties->setNum(data.m_penalties);
+    setFloatFormat(ui->lap_penalties, fmtPenalty, data.m_penalties);
     ui->lap_position->setNum(data.m_carPosition);
 
     ui->lap_num->setNum(data.m_currentLapNum);
 
-    ui->lap_time_best->setText(formatTimeMs(data.m_bestLapTime));
-    ui->lap_time_last->setText(formatTimeMs(data.m_lastLapTime));
-    ui->lap_time_current->setText(formatTimeMs(data.m_currentLapTime));
+    setTimeMs(ui->lap_time_best, data.m_bestLapTime);
+    setTimeMs(ui->lap_time_last, data.m_lastLapTime);
+    setTimeMs(ui->lap_time_current, data.m_currentLapTime);
+
+    if (namePrev.length() > 0){
+       ui->pos_prev_name->setText(namePrev);
+       setFloatFormat(ui->pos_prev_delta, fmtThreeSign, deltaPrev);
+       if (deltaPrev > 0) {
+           setColor(ui->pos_prev_delta, colorGREEN);
+       } else {
+           setColor(ui->pos_prev_delta, colorRED);
+       }
+    } else {
+        ui->pos_prev_name->clear();
+        ui->pos_prev_delta->clear();
+        ui->pos_prev_delta->setStyleSheet("");
+    }
+
+    if (nameFollow.length() > 0){
+       ui->pos_follow_name->setText(nameFollow);
+       setFloatFormat(ui->pos_follow_delta, fmtThreeSign, deltaFollow);
+       if (deltaFollow > 0) {
+           setColor(ui->pos_follow_delta, colorGREEN);
+       } else {
+           ui->pos_prev_name->clear();
+           setColor(ui->pos_follow_delta, colorRED);
+       }
+    } else {
+        ui->pos_follow_name->clear();
+        ui->pos_follow_delta->clear();
+        ui->pos_follow_delta->setStyleSheet("");
+    }
 }
 
 void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionData &data){
@@ -95,7 +129,7 @@ void F1Status::sessionChanged(const PacketHeader &header, const PacketSessionDat
 
    ui->session_type->setText(UdpSpecification::instance()->session_type(data.m_sessionType));
    ui->session_track->setText(UdpSpecification::instance()->track(data.m_trackId));
-   ui->session_time_left->setText(formatTimeS(data.m_sessionTimeLeft));
+   setTimeS(ui->session_time_left, data.m_sessionTimeLeft);
    ui->weather->setText(UdpSpecification::instance()->weather(data.m_weather));
    ui->temp_track->setNum(data.m_trackTemperature);
    ui->temp_air->setNum(data.m_airTemperature);
@@ -120,6 +154,7 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
    ui->tyre_compound->setText(UdpSpecification::instance()->tyre(data.m_tyreCompound));
    ui->tyre_visual->setText(UdpSpecification::instance()->visualTyre(data.m_tyreVisualCompound));
 
+   drsAllowed = data.m_drsAllowed;
 
    // ERS
    float h = (data.m_ersHarvestedThisLapMGUK + data.m_ersHarvestedThisLapMGUH) / 1000.0;
@@ -133,13 +168,13 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
 
    // Fuel
    ui->fuel_mix->setText(UdpSpecification::instance()->fuelMix(data.m_fuelMix));
-   ui->fuel_in_tank->setText(truncate2(data.m_fuelInTank));
+   setFloatFormat(ui->fuel_in_tank, fmtTwo, data.m_fuelInTank);
 
-   ui->car_fuel_laps->setText(truncate2plus(data.m_fuelRemainingLaps));
+   setFloatFormat(ui->car_fuel_laps, fmtTwoSign, data.m_fuelRemainingLaps);
    if (data.m_fuelRemainingLaps >= 0) {
-       setGreen(ui->car_fuel_laps);
+       setColor(ui->car_fuel_laps, colorGREEN);
    } else {
-       setRed(ui->car_fuel_laps);
+       setColor(ui->car_fuel_laps, colorRED);
    }
 
    setColoredLabel(ui->dmg_tyre_wear_rl, data.m_tyresWear[0]);
@@ -155,9 +190,8 @@ void F1Status::statusChanged(const PacketHeader &header,const CarStatusData &dat
    setColoredLabel(ui->dmg_wing_rear, data.m_rearWingDamage);
 }
 
-void F1Status::participantChanged(const PacketHeader &header, const ParticipantData &data){
+void F1Status::participantChanged(const PacketHeader &header, const ParticipantData &data) {
    Q_UNUSED(header);
-
    ui->participant_name->setText(data.m_name);
 }
 
@@ -174,53 +208,45 @@ void F1Status::eventChanged(const PacketHeader &header, const PacketEventData &d
 // ------------------------
 // Helper
 // ------------------------
-void F1Status::setColoredLabel(QLabel* item, quint8 value)  {
-    auto oldValue = item->text();
-    auto newValue = QString::number(value);
-    if (oldValue.compare(newValue) != 0) {
-       int hue = 120 - (value * 12 / 10);
-       QString bc = QString("background-color: hsv(%1, 255, 180); color: rgb(0, 0, 0);").arg(hue);
-       item->setNum(value);
-       item->setStyleSheet(bc);
-    }
+void F1Status::setColoredLabel(QLabel* label, quint8 value)  {
+   int hue = 120 - (value * 12 / 10);
+   label->setNum(value);
+   label->setStyleSheet(QString(colorPct).arg(hue));
+}
+void F1Status::setColor(QLabel* label, const QString fmtColor) {
+   label->setStyleSheet(fmtColor);
 }
 
-void F1Status::setRed(QLabel* label){
-   label->setStyleSheet("background-color: hsv(0, 255, 180); color: rgb(0, 0, 0);");
-}
+void F1Status::setTimeDelta(QLabel* label, const float last, const float best) {
+    float delta = last - best;
 
-void F1Status::setGreen(QLabel* label){
-   label->setStyleSheet("background-color: hsv(120, 255, 180);color: rgb(0, 0, 0);");
-}
+    setFloatFormat(label, fmtThreeSign, delta);
 
-void F1Status::setOrange(QLabel* label){
-   label->setStyleSheet("background-color: hsv(60, 255, 180)color: rgb(0, 0, 0);");
-}
-
-QString F1Status::formatTimeMs(float value)  {
-   return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("m:ss.zzz");
-}
-
-QString F1Status::formatTimeS(uint16_t value)  {
-    if (value > 60 *60) {
-       return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("h:mm:ss");
+    if (delta == 0) {
+       label->setStyleSheet("");
     } else {
-        return QTime::fromMSecsSinceStartOfDay(value * 1000).toString("mm:ss");
+       if (delta > 0) {
+          setColor(label, colorGREEN);
+       } else {
+          setColor(label, colorORANGE);
+       }
     }
 }
 
-QString F1Status::truncate2(float value)  {
-    QString x;
-    x.sprintf("%02.2f", value);
-    return x;
+void F1Status::setTimeMs(QLabel* label, const float value)  {
+   label->setText(QTime::fromMSecsSinceStartOfDay(value * 1000).toString(fmtMSSZZZ));
 }
 
-QString F1Status::truncate2plus(float value)  {
-    QString x;
-    x.sprintf("%+02.2f", value);
-    return x;
+void F1Status::setTimeS(QLabel* label, const uint16_t value)  {
+    QTime time = QTime::fromMSecsSinceStartOfDay(value * 1000);
+    if (value > 60 *60) {
+       label->setText(time.toString(fmtHMMSS));
+    } else {
+       label->setText(time.toString(fmtMMSS));
+    }
 }
 
-QString F1Status::setPSI(float value)  {
-    return QString("%1 psi").arg(value);
+void F1Status::setFloatFormat( QLabel* label, const char* fmt, const float value)  {
+    label->setText(QString().sprintf(fmt, value));
 }
+

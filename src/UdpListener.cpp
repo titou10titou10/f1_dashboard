@@ -31,6 +31,7 @@ bool F1Listener::tryRead() {
 
             case UdpSpecification::PacketType::Header: {
 				stream >> _lastHeader;
+                _interface->headerData(_lastHeader);
                 // Header extracted,. Set the data type based on m_packetId
                 _expectedDataType = static_cast<UdpSpecification::PacketType>(_lastHeader.m_packetId);
                 return true;

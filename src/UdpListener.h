@@ -9,7 +9,8 @@
 class F1PacketInterface {
   public:
 	virtual ~F1PacketInterface();
-	virtual void telemetryData(const PacketHeader &header, const PacketCarTelemetryData &data) = 0;
+    virtual void headerData(const PacketHeader &header) = 0;
+    virtual void telemetryData(const PacketHeader &header, const PacketCarTelemetryData &data) = 0;
 	virtual void lapData(const PacketHeader &header, const PacketLapData &data) = 0;
 	virtual void sessionData(const PacketHeader &header, const PacketSessionData &data) = 0;
 	virtual void setupData(const PacketHeader &header, const PacketCarSetupData &data) = 0;
