@@ -29,16 +29,17 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
     auto ixPlayer = header.m_playerCarIndex;
     auto playerData = data.m_lapData[ixPlayer];
 
-    QString namePrev = "";
+    QString namePrev = "-";
     int ixPrev = -1;
     float deltaPrev = 0;
-    QString nameFollow = "";
+    QString nameFollow = "-";
     int ixFollow = -1;
     float deltaFollow = 0;
 
-    // Only compute delta times for races
-    if ((sessionType != 10) && (sessionType != 11)) {
-       emit(lapChanged(header, data.m_lapData.at(ixPlayer), namePrev, deltaPrev, nameFollow, deltaFollow));
+    // Only compute delta times for races or Qualif sessions
+    if ((sessionType == 0) || (sessionType == 12)) {
+       emit(lapChanged(header, data.m_lapData[ixPlayer], namePrev, deltaPrev, nameFollow, deltaFollow));
+       return;
     }
 
     // Find index and name of prev car
@@ -47,7 +48,7 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
        for(int i = 0; i < numActiveCars; i++) {
           if (data.m_lapData[i].m_carPosition == posPrev) {
              ixPrev = i;
-             namePrev = participants.at(i).m_name;
+             namePrev = participants[i].m_name;
              break;
           }
        }
@@ -59,11 +60,38 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
         for(int i = 0; i < numActiveCars; i++) {
            if (data.m_lapData[i].m_carPosition == posFollow) {
               ixFollow = i;
-              nameFollow = participants.at(i).m_name;
+              nameFollow = participants[i].m_name;
               break;
            }
         }
     }
+
+    // --------------------------------------
+    // For qualif session, compare best times
+    // --------------------------------------
+
+    if ((sessionType != 10) && (sessionType != 11)) {
+
+       float bestLapTimePlayer = data.m_lapData[ixPlayer].m_bestLapTime;
+       if (bestLapTimePlayer > 0) {
+          if (ixPrev != -1) {
+             if (data.m_lapData[ixPrev].m_bestLapTime > 0) {
+                deltaPrev = data.m_lapData[ixPrev].m_bestLapTime - bestLapTimePlayer;
+             }
+          }
+          if (ixFollow != -1) {
+             if (data.m_lapData[ixFollow].m_bestLapTime > 0) {
+                deltaPrev = data.m_lapData[ixFollow].m_bestLapTime - bestLapTimePlayer;
+             }
+          }
+       }
+       emit(lapChanged(header, data.m_lapData[ixPlayer], namePrev, deltaPrev, nameFollow, deltaFollow));
+       return;
+    }
+
+    // --------------------------------------
+    // For Races, compare total time
+    // --------------------------------------
 
     // Store current lap time per participant, per lap
     if (timeLastLaps.empty()){

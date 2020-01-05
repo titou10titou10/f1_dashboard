@@ -165,7 +165,7 @@ background-color: rgb(50, 50, 50);</string>
        <item row="0" column="1">
         <widget class="QLabel" name="label_14">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -245,7 +245,7 @@ background-color: rgb(50, 50, 50);</string>
          <item>
           <widget class="QLabel" name="ers_mode">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -1124,7 +1124,66 @@ color: rgb(0, 0, 0);</string>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,1,0">
+      <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,0,0">
+       <item>
+        <widget class="QLabel" name="car_fuel_laps">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>100</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: hsv(120, 255, 180);
+color: rgb(0, 0, 0);</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
+         </property>
+         <property name="text">
+          <string notr="true">+0.00</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Laps.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QLabel" name="label_15">
          <property name="font">
@@ -1145,8 +1204,8 @@ color: rgb(0, 0, 0);</string>
        <item>
         <widget class="QLabel" name="fuel_mix">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>1</horstretch>
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
@@ -1184,7 +1243,7 @@ color: rgb(0, 0, 0);</string>
        <item>
         <widget class="QLabel" name="fuel_in_tank">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -1216,8 +1275,8 @@ color: rgb(0, 0, 0);</string>
        <item>
         <widget class="QLabel" name="label_5">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>1</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
@@ -1230,65 +1289,6 @@ color: rgb(0, 0, 0);</string>
          </property>
          <property name="text">
           <string>L</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="car_fuel_laps">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>100</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">background-color: hsv(120, 255, 180);
-color: rgb(0, 0, 0);</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="text">
-          <string notr="true">+0.00</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_6">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>1</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Laps</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -2535,7 +2535,7 @@ color: rgb(0, 0, 0);</string>
       <zorder>pressure_rr</zorder>
      </widget>
     </item>
-    <item row="5" column="1" colspan="3" rowspan="2">
+    <item row="5" column="1" rowspan="2" colspan="3">
      <widget class="QGroupBox" name="group_position">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -2549,7 +2549,7 @@ color: rgb(0, 0, 0);</string>
        </font>
       </property>
       <property name="title">
-       <string>Position (Delta from last sector)</string>
+       <string>Deltas</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
@@ -2558,7 +2558,7 @@ color: rgb(0, 0, 0);</string>
        <item row="0" column="0">
         <widget class="QLabel" name="pos_prev_delta">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -2590,7 +2590,7 @@ color: rgb(0, 0, 0);</string>
        <item row="0" column="1">
         <widget class="QLabel" name="pos_prev_name">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>4</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -2610,7 +2610,7 @@ color: rgb(0, 0, 0);</string>
        <item row="1" column="0">
         <widget class="QLabel" name="pos_follow_delta">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -2639,7 +2639,7 @@ color: rgb(0, 0, 0);</string>
        <item row="1" column="1">
         <widget class="QLabel" name="pos_follow_name">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>4</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
