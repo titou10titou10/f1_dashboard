@@ -6,7 +6,7 @@ const QString &VERSION = "1.1";
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    a.setApplicationName("F1Status");
+    a.setApplicationName("F1Dashboard");
     a.setApplicationVersion(VERSION);
 
     F1Status w;
