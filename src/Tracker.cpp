@@ -81,7 +81,7 @@ void Tracker::lapData(const PacketHeader &header, const PacketLapData &data) {
           }
           if (ixFollow != -1) {
              if (data.m_lapData[ixFollow].m_bestLapTime > 0) {
-                deltaPrev = data.m_lapData[ixFollow].m_bestLapTime - bestLapTimePlayer;
+                deltaFollow = data.m_lapData[ixFollow].m_bestLapTime - bestLapTimePlayer;
              }
           }
        }

@@ -25,7 +25,7 @@ private:
     Tracker *_tracker;
 
     const char* fmtTwo       = "%02.2f";
-    const char* fmtTwoSign   = "%-02.2f";
+    const char* fmtTwoSign   = "%+02.2f";
     const char* fmtThreeSign = "%+02.3f";
     const char* fmtPSI       = "%02.1f psi";
     const char* fmtPenalty   = "%+02.0f secs";

@@ -200,6 +200,9 @@ background-color: rgb(50, 50, 50);</string>
            <bold>true</bold>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="maximum">
           <number>4000</number>
          </property>

@@ -94,7 +94,7 @@ void F1Status::lapChanged(const PacketHeader &header, const LapData &data, const
     setTimeMs(ui->lap_time_last, data.m_lastLapTime);
     setTimeMs(ui->lap_time_current, data.m_currentLapTime);
 
-    if (namePrev.isEmpty()) {
+    if (namePrev.length() <= 1) {
        ui->pos_prev_name->clear();
        ui->pos_prev_delta->clear();
        ui->pos_prev_delta->setStyleSheet("");
@@ -108,7 +108,7 @@ void F1Status::lapChanged(const PacketHeader &header, const LapData &data, const
        }
     }
 
-    if (nameFollow.isEmpty()) {
+    if (nameFollow <= 1) {
        ui->pos_follow_name->clear();
        ui->pos_follow_delta->clear();
        ui->pos_follow_delta->setStyleSheet("");

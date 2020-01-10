@@ -39,19 +39,22 @@ class UdpSpecification {
 		return tyres.value(index);
 	}
     QString visualTyre(int index) const 	{
-		if(index < 0)
+        if(index < 0) {
 			return "Unknown";
-		return visualTyres.value(index);
+        }
+        return visualTyres.value(index);
 	}
     QString ersMode(int index) const 	{
-		if(index < 0)
+        if(index < 0) {
 			return "Unknown";
-		return ersModes.value(index);
+        }
+        return QString::number(index) + "-" + ersModes.value(index);
 	}
     QString fuelMix(int index) const 	{
-		if(index < 0)
+        if(index < 0) {
 			return "Unknown";
-		return fuelMixes.value(index);
+        }
+        return QString::number(index) + "-" +fuelMixes.value(index);
 	}
     int nbRaceLaps(int trackIndex) const 	{
 		if(trackIndex < 0)
